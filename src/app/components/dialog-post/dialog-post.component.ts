@@ -5,10 +5,10 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
-import {PostService} from "../../services/api/services/post.service";
-import {Post} from "../../services/api/models/post";
+import {Post} from "../../models/post";
 import {DataUpdateService} from "../../services/communication/data-update.service";
 import {SnackBarService} from "../../services/snack-bar/snack-bar.service";
+import {ApiPostService} from "../../services/api/api-post.service";
 
 @Component({
     selector: 'app-dialog',
@@ -23,7 +23,7 @@ export class DialogPostComponent implements OnInit {
     addingPostForm: FormGroup = new FormGroup({}) // FormGroup for post form
 
     constructor(
-        private postService: PostService, // Custom service for post-related functionality
+        private apiPost: ApiPostService, // Custom service for post-related functionality
         public dialog: MatDialog, // Angular service for dialog
         public formBuilder: FormBuilder, // Angular service for building forms
         private dataUpdateService: DataUpdateService, // Inject custom service for updating data
@@ -32,7 +32,6 @@ export class DialogPostComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.postService.getAllPosts() // Fetch data for all posts
         this.addingPostForm = this.formBuilder.group({
             postTitle: ['', Validators.required], // Post title form control with required validator
             author: ['', Validators.required] // Author form control with required validator
@@ -55,14 +54,14 @@ export class DialogPostComponent implements OnInit {
         };
 
         // Call the postService to add a new post
-        this.postService.addNewPost({body: newPost}).subscribe(
+        this.apiPost.addNewPost(newPost).subscribe(
             (data) => {
 
                 // Show a success snackbar with the new post's title
                 this.snackbarService.showSnackbar(`New post with title: ${data.post_title.toUpperCase()} was added`);
 
                 // Update the post data
-                this.post = this.postService.getAllPosts()
+                this.post = this.apiPost.getPostAll()
 
                 // Reset the form
                 this.addingPostForm.reset();

@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Post} from "../../services/api/models/post";
-import {PostService} from "../../services/api/services";
+import {Post} from "../../models/post";
 import {RouterLink} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
@@ -9,7 +8,6 @@ import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {FlexModule} from "@angular/flex-layout";
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatSortModule} from "@angular/material/sort";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
@@ -21,8 +19,9 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {GoBackComponent} from "../../components/go-back/go-back.component";
 import {DataUpdateService} from "../../services/communication/data-update.service";
 import {ErrorMessageComponent} from "../../components/error-message/error-message.component";
-import {SpinnerComponent} from "../../widgets/spinner/spinner.component";
+import {SpinnerComponent} from "../../components/spinner/spinner.component";
 import {SnackBarService} from "../../services/snack-bar/snack-bar.service";
+import {ApiPostService} from "../../services/api/api-post.service";
 
 
 @Component({
@@ -75,7 +74,7 @@ export class PostComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(
-        private postService: PostService,
+        private apiPost: ApiPostService,
         public dialog: MatDialog,
         private dataUpdateService: DataUpdateService,
         private snackbarService: SnackBarService
@@ -111,7 +110,7 @@ export class PostComponent implements OnInit {
         this.spinner = true; // Show loading spinner
 
         // Call the API to get all posts
-        this.postService.getAllPosts().subscribe(
+        this.apiPost.getPostAll().subscribe(
             (data) => {
                 // Assign retrieved data to post and MatTable dataSource
                 this.post = data
@@ -126,7 +125,7 @@ export class PostComponent implements OnInit {
 
     deletePost(postId: string) {
         // Call the API to delete the post
-        this.postService.deletePostById({_id: postId}).subscribe(
+        this.apiPost.deletePostById(postId).subscribe(
             () => {
                 this.snackbarService.showSnackbar('Post deleted successfully.');
                 this.loadPosts()

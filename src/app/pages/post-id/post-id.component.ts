@@ -1,25 +1,22 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {PostService} from "../../services/api/services/post.service";
 import {ActivatedRoute} from "@angular/router";
-import {CommentService} from "../../services/api/services/comment.service";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {MatTabsModule} from "@angular/material/tabs";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatListModule} from "@angular/material/list";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
-import {MatDialogModule} from "@angular/material/dialog";
 import {GoBackComponent} from "../../components/go-back/go-back.component";
-import {MatIconModule} from "@angular/material/icon";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {ErrorMessageComponent} from "../../components/error-message/error-message.component";
-import {SpinnerComponent} from "../../widgets/spinner/spinner.component";
+import {SpinnerComponent} from "../../components/spinner/spinner.component";
 import {HeroComponent} from "../../components/hero/hero.component";
 import {SnackBarService} from "../../services/snack-bar/snack-bar.service";
+import {ApiPostService} from "../../services/api/api-post.service";
+import {ApiCommentsService} from "../../services/api/api-comments.service";
 
 
 @Component({
@@ -27,11 +24,8 @@ import {SnackBarService} from "../../services/snack-bar/snack-bar.service";
     standalone: true,
     imports: [
         CommonModule,
-        MatDialogModule,
-        MatIconModule,
         ReactiveFormsModule,
         FormsModule,
-        MatTabsModule,
         MatButtonToggleModule,
         MatExpansionModule,
         MatListModule,
@@ -67,8 +61,8 @@ export class PostIdComponent {
 
     constructor(
         private route: ActivatedRoute, // Angular service for accessing route information
-        private postService: PostService, // Custom service for post-related functionality
-        private commentService: CommentService, // Custom service for comment-related functionality
+        private apiPost: ApiPostService, // Custom service for post-related functionality
+        private apiComment: ApiCommentsService, // Custom service for post-related functionality
         private formBuilder: FormBuilder, // Angular service for building forms
         private snackbarService: SnackBarService // Injected service with function for snack bar
     ) {
@@ -89,7 +83,7 @@ export class PostIdComponent {
     getPostById(postId: string) {
         this.spinner = true; // Show spinner while fetching post data
 
-        this.postService.getPostById({_id: postId}).subscribe(
+        this.apiPost.getPostById(postId).subscribe(
             (postData) => {
                 this.post = postData; // Assign fetched post data
                 this.spinner = false // Hide spinner on successful fetch
@@ -104,7 +98,7 @@ export class PostIdComponent {
     getCommentsForPost(postId: string) {
         this.spinner = true; // Show spinner while fetching comments
 
-        this.commentService.getCommentsOfPost({post_id: postId}).subscribe(
+        this.apiComment.getCommentsOfPost(postId).subscribe(
             (comments) => {
                 this.comments = comments; // Assign fetched comments
                 this.spinner = false // Hide spinner on successful fetch
@@ -137,10 +131,10 @@ export class PostIdComponent {
         }
 
         // Call the comment service to delete the comment by ID
-        this.commentService.deleteCommentById({
-            post_id: this.post._id, // Post ID
-            comment_id: commentId // Comment ID
-        }).subscribe(
+        this.apiComment.deleteCommentById(
+            this.post._id, // Post ID
+            commentId // Comment ID
+        ).subscribe(
             () => {
                 // Comment deleted successfully
                 this.snackbarService.showSnackbar('Comment deleted successfully');
@@ -169,11 +163,11 @@ export class PostIdComponent {
             };
 
             // Call the comment service to edit the comment
-            this.commentService.editCommentById({
-                post_id: postId, // Post ID
-                comment_id: this.selectedComment._id, // Comment ID
-                body: updatedCommentData // Updated comment data
-            }).subscribe(
+            this.apiComment.editCommentById(
+                postId, // Post ID
+                this.selectedComment._id, // Comment ID
+                updatedCommentData // Updated comment data
+            ).subscribe(
                 () => {
                     this.selectedComment = null; // Reset selected comment
                     this.snackbarService.showSnackbar('Comment was edited and added successfully.');
@@ -188,8 +182,8 @@ export class PostIdComponent {
         } else {
             // Check if postId is not null before using it
             if (postId) {
-                const commentData = {
-                    post_id: postId, // Post ID
+                const commentData: any = {
+                    post_id: postId,
                     content: this.commentForm.value.content,
                     author: this.commentForm.value.author,
                     created_at: new Date().toISOString(),
@@ -197,11 +191,16 @@ export class PostIdComponent {
                 };
 
                 // Call the comment service to add a new comment to a specific post
-                this.commentService.addCommentsToSpecificPost({post_id: postId, body: commentData})
+                this.apiComment.addCommentsToSpecificPost(postId, commentData)
                     .subscribe(() => {
                             this.snackbarService.showSnackbar('Your comment was was added successfully..');
                             this.getCommentsForPost(this.post._id); // Reload comments
                             this.commentForm.reset(); // Reset the form after successful submission
+                            window.scroll({
+                                top:  document.body.scrollHeight,
+                                left: 0,
+                                behavior: 'smooth'
+                            });
                         },
                         (error) => {
                             console.error('Error adding comment:', error);
