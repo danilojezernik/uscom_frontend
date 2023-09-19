@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Add new post</h1>
+
+<div mat-dialog-content>
+    <form [formGroup]="addingPostForm" (ngSubmit)="addPost()">
+
+        <mat-form-field style="width: 100%">
+            <mat-label>Post Title</mat-label>
+            <input type="text" formControlName="postTitle" matInput>
+            <mat-hint *ngIf="addingPostForm.get('postTitle')?.invalid && addingPostForm.get('postTitle')?.touched" align="end">
+                Post title is required
+            </mat-hint>
+        </mat-form-field>
+        <mat-form-field style="width: 100%">
+            <mat-label>Author</mat-label>
+            <input type="text" formControlName="author" matInput>
+            <mat-hint *ngIf="addingPostForm.get('author')?.invalid && addingPostForm.get('author')?.touched" align="end">
+                Author is required
+            </mat-hint>
+        </mat-form-field>
+        <button mat-raised-button color="warn" type="submit" [disabled]="addingPostForm.invalid">Add Post</button>
+    </form>
+</div>

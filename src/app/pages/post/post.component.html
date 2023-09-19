@@ -1,0 +1,58 @@
+<app-post-hero [hero]="heroData"></app-post-hero>
+
+<div class="container mat-elevation-z8">
+    <button style="width: 100%; border-radius: 0" mat-raised-button color="primary" (click)="openDialog()">Add New Post</button>
+
+    <div style="margin: 0 auto">
+        <div *ngIf="!post && !spinner">
+            <app-error-message class="error-message" [message]="message"></app-error-message>
+        </div>
+    </div>
+
+    <table *ngIf="post" mat-table [dataSource]="dataSource">
+        <!-- Post Title Column -->
+        <ng-container matColumnDef="post_title">
+            <th mat-header-cell *matHeaderCellDef> Post Title</th>
+            <td mat-cell *matCellDef="let element"> {{element.post_title}} </td>
+        </ng-container>
+        <!-- Author Column -->
+        <ng-container matColumnDef="author">
+            <th mat-header-cell *matHeaderCellDef> Author</th>
+            <td mat-cell *matCellDef="let element"> {{element.author}} </td>
+        </ng-container>
+
+        <!-- Created At Column -->
+        <ng-container matColumnDef="created_at">
+            <th mat-header-cell *matHeaderCellDef> Created At</th>
+            <td mat-cell *matCellDef="let element"> {{element.created_at | date: 'MMM d, y, h:mm:ss a' }} </td>
+        </ng-container>
+
+        <!-- Updated At Column -->
+        <ng-container matColumnDef="updated_at">
+            <th mat-header-cell *matHeaderCellDef> Updated At</th>
+            <td mat-cell *matCellDef="let element"> {{element.updated_at | date: 'MMM d, y, h:mm:ss a' }} </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+            <th style="text-align: center" mat-header-cell *matHeaderCellDef> Action</th>
+            <td style="text-align: center" mat-cell *matCellDef="let element">
+                <button style="margin-right: 10px" mat-raised-button color="primary" [routerLink]="['/post/', element._id]">READ</button>
+                <button mat-raised-button color="warn" (click)="deletePost(element._id)">DELETE</button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"
+                   showFirstLastButtons
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+</div>
+
+<div *ngIf="spinner">
+    <app-spinner></app-spinner>
+</div>
+

@@ -1,0 +1,7 @@
+.go-back {
+    position: fixed;
+    bottom: 20px; /* Adjust the top distance as needed */
+    right: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}

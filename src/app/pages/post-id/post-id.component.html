@@ -1,0 +1,56 @@
+<app-post-hero [hero]="heroData"></app-post-hero>
+
+<div class="container-md mat-elevation-z8">
+    <div style="margin: 0 auto" class="text-center">
+        <div *ngIf="!post && !comments && !spinner">
+            <app-error-message class="error-message" [message]="message"></app-error-message>
+        </div>
+    </div>
+    <div *ngIf="post" style="text-align: center; padding: 30px">
+        <h1><b>{{ post.post_title }}</b></h1>
+        <p>Author: <b>{{ post.author }}</b></p>
+        <p><i>Created at: {{ post.created_at | date: 'MMM d, y, h:mm:ss a' }}</i></p>
+    </div>
+    <mat-divider></mat-divider>
+    <form style="padding: 20px" [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+        <mat-form-field style="width: 100%">
+            <mat-label>Leave a comment</mat-label>
+            <textarea type="text" formControlName="content" matInput></textarea>
+            <mat-hint *ngIf="commentForm.get('content')?.invalid && commentForm.get('content')?.touched" align="end">
+                Content is required
+            </mat-hint>
+        </mat-form-field>
+        <mat-form-field style="width: 100%">
+            <mat-label>Author</mat-label>
+            <input type="text" formControlName="author" matInput>
+            <mat-hint *ngIf="commentForm.get('author')?.invalid && commentForm.get('author')?.touched" align="end">
+                Author is required
+            </mat-hint>
+        </mat-form-field>
+        <button style="width: 100%" mat-raised-button color="warn" type="submit"
+                [disabled]="!commentForm.valid">{{ selectedComment ? 'Edit Comment' : 'Add Comment' }}</button>
+    </form>
+    <mat-divider></mat-divider>
+    <mat-list *ngIf="comments">
+        <mat-list-item style="padding: 20px 20px; border-bottom: #000000;" *ngFor="let comment of comments">
+            <span matListItemTitle class="manual-break">{{ comment.content }}</span>
+            <span matListItemLine>Author: {{ comment.author }}</span>
+            <span matListItemLine style="padding-top: 20px">
+                Updated at: {{ comment.updated_at | date: 'MMM d, y, h:mm:ss a'  }} <b>|</b>
+                Created at: {{ comment.created_at | date: 'MMM d, y, h:mm:ss a'  }}
+                <button style="float: right" mat-stroked-button color="primary" (click)="editComment(comment)">Edit</button>
+                <button style="float: right" mat-stroked-button color="warn" (click)="deleteComment(comment._id)">Delete</button>
+            </span>
+            <span matListItemLine style="border-bottom: 1px solid">
+            </span>
+        </mat-list-item>
+    </mat-list>
+</div>
+
+<div *ngIf="spinner">
+    <app-spinner></app-spinner>
+</div>
+
+<app-go-back></app-go-back>
+
+
