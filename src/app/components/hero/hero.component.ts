@@ -5,8 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-post-hero',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './hero.component.html',
-  styleUrls: ['../../app.component.css']
+  templateUrl: './hero.component.html'
 })
 export class HeroComponent {
   @Input() hero: {title: string, content: string} | undefined

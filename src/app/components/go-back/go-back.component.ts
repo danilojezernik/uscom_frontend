@@ -8,8 +8,7 @@ import {MatButtonModule} from '@angular/material/button';
   selector: 'app-go-back',
   standalone: true,
   imports: [CommonModule, MatIconModule,MatButtonModule],
-  templateUrl: './go-back.component.html',
-  styleUrls: ['./go-back.component.css']
+  templateUrl: './go-back.component.html'
 })
 export class GoBackComponent {
   constructor(

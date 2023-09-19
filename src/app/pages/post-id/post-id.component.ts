@@ -40,8 +40,7 @@ import {ApiCommentsService} from "../../services/api/api-comments.service";
         HeroComponent,
 
     ],
-    templateUrl: './post-id.component.html',
-    styleUrls: ['../../app.component.css']
+    templateUrl: './post-id.component.html'
 })
 export class PostIdComponent {
 

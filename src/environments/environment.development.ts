@@ -1,3 +1,3 @@
 export const environment = {
-  backUrl: 'http://localhost:8000'
+  backUrl: 'https://uscom-backend-41170fa07922.herokuapp.com'
 };

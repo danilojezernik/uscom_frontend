@@ -1,4 +1,99 @@
-/* You can add global styles to this file, and also import other style files */
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+* {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.container-xl {
+    padding: 50px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.container-md {
+    max-width: 700px;
+    margin: auto;
+}
+
+.container-sm {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.manual-break {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner-container {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.error-message {
+    font-size: 1.5rem;
+    padding: 20px 20px;
+}
+
+.footer {
+    margin: 0 auto;
+    text-align: center;
+    padding: 30px 30px;
+    color: darkgrey;
+}
+
+.footer a {
+    text-decoration: none;
+}
+
+.go-back {
+    position: fixed;
+    bottom: 20px; /* Adjust the top distance as needed */
+    right: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}

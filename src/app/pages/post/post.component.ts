@@ -49,8 +49,7 @@ import {ApiPostService} from "../../services/api/api-post.service";
         ErrorMessageComponent,
         SpinnerComponent
     ],
-    templateUrl: './post.component.html',
-    styleUrls: ['../../app.component.css']
+    templateUrl: './post.component.html'
 })
 export class PostComponent implements OnInit {
 

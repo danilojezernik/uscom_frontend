@@ -14,8 +14,7 @@ import {ApiPostService} from "../../services/api/api-post.service";
     selector: 'app-dialog',
     standalone: true,
     imports: [CommonModule, MatDialogModule, MatButtonModule, FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule],
-    templateUrl: './dialog-post.component.html',
-    styleUrls: ['../../app.component.css']
+    templateUrl: './dialog-post.component.html'
 })
 export class DialogPostComponent implements OnInit {
 
