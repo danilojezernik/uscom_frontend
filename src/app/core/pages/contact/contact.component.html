@@ -7,8 +7,8 @@
                 <td>
                     <mat-form-field style="width: 100%">
                         <mat-label>Name</mat-label>
-                        <input formControlName="name" id="name" matInput>
-                        <mat-hint *ngIf="emailForm.get('name')?.touched || emailForm.get('name')?.dirty" align="end">
+                        <input formControlName="name" required matInput>
+                        <mat-hint *ngIf="emailForm.get('name')?.invalid && (emailForm.get('name')?.touched || emailForm.get('name')?.dirty)" align="end">
                             Name is required
                         </mat-hint>
                     </mat-form-field>
@@ -16,7 +16,7 @@
                 <td>
                     <mat-form-field style="width: 100%">
                         <mat-label>Surname</mat-label>
-                        <input formControlName="surname" matInput>
+                        <input formControlName="surname" required matInput>
                         <mat-hint *ngIf="emailForm.get('surname')?.invalid && (emailForm.get('surname')?.touched || emailForm.get('surname')?.dirty)" align="end">
                             Surname is required
                         </mat-hint>
@@ -26,18 +26,21 @@
         </table>
         <mat-form-field style="width: 100%">
             <mat-label>Your email</mat-label>
-            <input formControlName="email" matInput>
+            <input formControlName="email" required matInput>
             <mat-hint *ngIf="emailForm.get('email')?.invalid && (emailForm.get('email')?.touched || emailForm.get('email')?.dirty)" align="end">
-                Email is required
+                Valid email is required
             </mat-hint>
         </mat-form-field>
         <mat-form-field style="width: 100%">
             <mat-label>Message</mat-label>
-            <textarea formControlName="content" matInput></textarea>
+            <textarea formControlName="content" required matInput></textarea>
             <mat-hint *ngIf="emailForm.get('content')?.invalid && (emailForm.get('content')?.touched || emailForm.get('content')?.dirty)" align="end">
                 Content is required
             </mat-hint>
         </mat-form-field>
         <button style="width: 100%; border-radius: 0" mat-raised-button color="warn" type="submit">Send email</button>
     </form>
+</div>
+<div *ngIf="spinner">
+  <app-spinner></app-spinner>
 </div>
