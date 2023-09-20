@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
-import {Post} from "../../models/post";
-import {DataUpdateService} from "../../services/communication/data-update.service";
-import {SnackBarService} from "../../services/snack-bar/snack-bar.service";
-import {ApiPostService} from "../../services/api/api-post.service";
+import {Post} from "../../../core/models/post";
+import {DataUpdateService} from "../../../core/services/communication/data-update.service";
+import {SnackBarService} from "../../../core/services/snack-bar/snack-bar.service";
+import {ApiPostService} from "../../../core/services/api/api-post.service";
 
 @Component({
     selector: 'app-dialog',

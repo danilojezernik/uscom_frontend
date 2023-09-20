@@ -3,7 +3,7 @@ import {Post} from "../../models/post";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatDialog} from "@angular/material/dialog";
-import {DialogPostComponent} from "../../components/dialog-post/dialog-post.component";
+import {DialogPostComponent} from "../../../shared/components/dialog-post/dialog-post.component";
 import {DataUpdateService} from "../../services/communication/data-update.service";
 import {SnackBarService} from "../../services/snack-bar/snack-bar.service";
 import {ApiPostService} from "../../services/api/api-post.service";

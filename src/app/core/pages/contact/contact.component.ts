@@ -27,7 +27,6 @@ export class ContactComponent implements OnInit {
         private snackbarService: SnackBarService, // Injected service with function for snack bar
         private formBuilder: FormBuilder, // Angular service for building forms
         private emailValidator: EmailValidatorService  // Injected service with function for validating email
-
     ) {
     }
 

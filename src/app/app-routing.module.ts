@@ -1,9 +1,11 @@
+// Angular core imports
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {PostComponent} from "./pages/post/post.component";
-import {PostIdComponent} from "./pages/post-id/post-id.component";
-import {ContactComponent} from "./pages/contact/contact.component";
+// Custom component imports
+import {PostComponent} from "./core/pages/post/post.component";
+import {PostIdComponent} from "./core/pages/post-id/post-id.component";
+import {ContactComponent} from "./core/pages/contact/contact.component";
 
 const routes: Routes = [
     {
