@@ -1,10 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {MatButtonModule} from "@angular/material/button";
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {MatDialog} from "@angular/material/dialog";
 import {Post} from "../../models/post";
 import {DataUpdateService} from "../../services/communication/data-update.service";
 import {SnackBarService} from "../../services/snack-bar/snack-bar.service";
@@ -12,8 +8,6 @@ import {ApiPostService} from "../../services/api/api-post.service";
 
 @Component({
     selector: 'app-dialog',
-    standalone: true,
-    imports: [CommonModule, MatDialogModule, MatButtonModule, FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule],
     templateUrl: './dialog-post.component.html'
 })
 export class DialogPostComponent implements OnInit {
@@ -64,6 +58,7 @@ export class DialogPostComponent implements OnInit {
 
                 // Reset the form
                 this.addingPostForm.reset();
+                this.dialog.closeAll()
 
                 // Trigger a data update to reflect the changes
                 this.dataUpdateService.triggerDataUpdate();

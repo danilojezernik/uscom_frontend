@@ -1,10 +1,7 @@
 import {Component, Input} from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-post-hero',
-  standalone: true,
-  imports: [CommonModule],
+  selector: 'app-hero',
   templateUrl: './hero.component.html'
 })
 export class HeroComponent {

@@ -1,54 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {Post} from "../../models/post";
-import {RouterLink} from "@angular/router";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatTableDataSource, MatTableModule} from "@angular/material/table";
-import {MatCardModule} from "@angular/material/card";
-import {MatButtonModule} from "@angular/material/button";
-import {FlexModule} from "@angular/flex-layout";
-import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
-import {MatSortModule} from "@angular/material/sort";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatListModule} from "@angular/material/list";
-import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatDialog} from "@angular/material/dialog";
 import {DialogPostComponent} from "../../components/dialog-post/dialog-post.component";
-import {HeroComponent} from "../../components/hero/hero.component";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {GoBackComponent} from "../../components/go-back/go-back.component";
 import {DataUpdateService} from "../../services/communication/data-update.service";
-import {ErrorMessageComponent} from "../../components/error-message/error-message.component";
-import {SpinnerComponent} from "../../components/spinner/spinner.component";
 import {SnackBarService} from "../../services/snack-bar/snack-bar.service";
 import {ApiPostService} from "../../services/api/api-post.service";
 
 
 @Component({
     selector: 'app-index',
-    standalone: true,
-    imports: [
-        CommonModule,
-        RouterLink,
-        FormsModule,
-        ReactiveFormsModule,
-        MatTableModule,
-        MatCardModule,
-        MatButtonModule,
-        FlexModule,
-        MatInputModule,
-        MatSortModule,
-        MatFormFieldModule,
-        MatPaginatorModule,
-        MatListModule,
-        MatDialogModule,
-        DialogPostComponent,
-        HeroComponent,
-        MatProgressSpinnerModule,
-        GoBackComponent,
-        ErrorMessageComponent,
-        SpinnerComponent
-    ],
     templateUrl: './post.component.html'
 })
 export class PostComponent implements OnInit {

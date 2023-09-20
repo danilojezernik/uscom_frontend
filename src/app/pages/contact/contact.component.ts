@@ -1,18 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {HeroComponent} from "../../components/hero/hero.component";
-import {MatInputModule} from "@angular/material/input";
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ApiEmailService} from "../../services/api/api-email.service";
 import {SnackBarService} from "../../services/snack-bar/snack-bar.service";
 import {Email} from "../../models/email";
 import {EmailValidatorService} from "../../services/email-validator/email-validator.service";
-import {MatButtonModule} from "@angular/material/button";
 
 @Component({
     selector: 'app-contact',
-    standalone: true,
-    imports: [CommonModule, HeroComponent, MatInputModule, ReactiveFormsModule, MatButtonModule],
     templateUrl: './contact.component.html',
 })
 export class ContactComponent implements OnInit {

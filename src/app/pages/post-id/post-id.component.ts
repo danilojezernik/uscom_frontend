@@ -1,19 +1,6 @@
 import {Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {ActivatedRoute} from "@angular/router";
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {MatButtonToggleModule} from "@angular/material/button-toggle";
-import {MatExpansionModule} from "@angular/material/expansion";
-import {MatListModule} from "@angular/material/list";
-import {MatCardModule} from "@angular/material/card";
-import {MatButtonModule} from "@angular/material/button";
-import {GoBackComponent} from "../../components/go-back/go-back.component";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {ErrorMessageComponent} from "../../components/error-message/error-message.component";
-import {SpinnerComponent} from "../../components/spinner/spinner.component";
-import {HeroComponent} from "../../components/hero/hero.component";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SnackBarService} from "../../services/snack-bar/snack-bar.service";
 import {ApiPostService} from "../../services/api/api-post.service";
 import {ApiCommentsService} from "../../services/api/api-comments.service";
@@ -21,25 +8,6 @@ import {ApiCommentsService} from "../../services/api/api-comments.service";
 
 @Component({
     selector: 'app-post-id',
-    standalone: true,
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        FormsModule,
-        MatButtonToggleModule,
-        MatExpansionModule,
-        MatListModule,
-        MatCardModule,
-        MatButtonModule,
-        GoBackComponent,
-        MatFormFieldModule,
-        MatInputModule,
-        MatProgressSpinnerModule,
-        ErrorMessageComponent,
-        SpinnerComponent,
-        HeroComponent,
-
-    ],
     templateUrl: './post-id.component.html'
 })
 export class PostIdComponent {
