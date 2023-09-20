@@ -107,3 +107,8 @@ form {
     border-radius: 5px;
     cursor: pointer;
 }
+
+.mat-cell {
+  padding: 20px;
+  font-weight: bold;
+}

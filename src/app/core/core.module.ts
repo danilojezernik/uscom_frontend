@@ -43,23 +43,23 @@ import {FooterComponent} from './footer/footer.component';
     HeaderComponent,
     FooterComponent,
   ],
-  imports: [
-    CommonModule,
-    AppRoutingModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    FlexModule,
-    MatListModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatButtonModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatToolbarModule,
-    SharedModule,
-    MatSnackBarModule,
-  ]
+    imports: [
+        CommonModule,
+        AppRoutingModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        FlexModule,
+        MatListModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatButtonModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatToolbarModule,
+        SharedModule,
+        MatSnackBarModule,
+    ]
 })
 export class CoreModule {
 }
