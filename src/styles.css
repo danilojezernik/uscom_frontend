@@ -1,15 +1,13 @@
+/* Importing Angular Material theme */
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
-
+/* Resetting margin and setting font-family */
 * {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+/* Style for a container */
 .container {
     display: flex;
     flex-direction: column;
@@ -18,17 +16,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin: auto;
 }
 
+/* Style for an extra large container */
 .container-xl {
     padding: 50px;
     max-width: 1200px;
     margin: auto;
 }
 
+/* Style for a medium container */
 .container-md {
     max-width: 700px;
     margin: auto;
 }
 
+/* Style for a small container */
 .container-sm {
     margin-top: 20px;
     display: flex;
@@ -39,22 +40,26 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-right: auto;
 }
 
+/* Style for a form */
 form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
+/* Style for text alignment */
 .text-center {
     text-align: center;
 }
 
+/* Style for word wrapping */
 .manual-break {
     overflow-wrap: break-word;
     word-wrap: break-word;
     white-space: pre-wrap;
 }
 
+/* Style for a spinner overlay */
 .spinner-overlay {
     position: fixed;
     top: 0;
@@ -67,6 +72,7 @@ form {
     align-items: center;
 }
 
+/* Style for a spinner container */
 .spinner-container {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     background-color: white;
@@ -74,11 +80,13 @@ form {
     border-radius: 10px;
 }
 
+/* Style for an error message */
 .error-message {
     font-size: 1.5rem;
     padding: 20px 20px;
 }
 
+/* Style for the footer */
 .footer {
     margin: 0 auto;
     text-align: center;
@@ -86,13 +94,15 @@ form {
     color: darkgrey;
 }
 
+/* Styles for footer link */
 .footer a {
     text-decoration: none;
 }
 
+/* Style for a "go back" button */
 .go-back {
     position: fixed;
-    bottom: 20px; /* Adjust the top distance as needed */
+    bottom: 20px;
     right: 20px;
     border-radius: 5px;
     cursor: pointer;

@@ -58,7 +58,12 @@ export class PostComponent implements OnInit {
     spinner: boolean = false; // Variable to control the visibility of a spinner
 
     displayColumns: string[] = ['post_title', 'author', 'created_at', 'updated_at', 'action'] // Define the columns to be displayed in the MatTable
-    dataSource = new MatTableDataSource<Post>(); // Initialize the MatTable data source with an array of posts
+
+    /**
+     * Data source for the MatTable representing posts.
+     * Initialize the MatTableDataSource with an array of posts.
+     */
+    dataSource = new MatTableDataSource<Post>();
 
     // Data for the hero section
     heroData = {
@@ -66,10 +71,15 @@ export class PostComponent implements OnInit {
         content: 'Check out some of the chapters of the book and read what others think about it!'
     };
 
-    message: string = 'Backend service is unavailable. Please try again later.' // Message to display when backend service is unavailable
+    // Message to display when backend service is unavailable
+    message: string = 'Backend service is unavailable. Please try again later.'
 
-    // ViewChild decorator to get a reference to MatPaginator
-    // @ts-ignore: TypeScript is ignored for paginator: MatPaginator
+    /**
+     * ViewChild decorator to get a reference to the MatPaginator component.
+     * Used to access and manipulate the MatPaginator component in the template.
+     *
+     */
+    // @ts-ignore
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(
@@ -80,31 +90,42 @@ export class PostComponent implements OnInit {
     ) {
     }
 
-    // Lifecycle hook called after the component's view is initialized
+    /**
+     * Method to handle actions after the view and child views are initialized.
+     * Assigns the paginator to the MatTable dataSource.
+     */
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator; // Assign the paginator to the MatTable dataSource
     }
 
-    // Lifecycle hook called after the component is initialized
+    /**
+     * Method to handle component initialization.
+     * Load posts on component initialization and subscribe to data update events.
+     */
     ngOnInit() {
         // Load posts on component initialization
         this.loadPosts()
 
-        // Subscribe to data update events
+        // Subscribe to data update events using the DataUpdateService
         this.dataUpdateService.dataUpdated$.subscribe(() => {
             // Reload the table when data is updated
             this.loadPosts();
         });
     }
 
-    // Opens a dialog to add a new post
+    /**
+     * Method to open a dialog to create a new post.
+     */
     openDialog() {
+        // Open a dialog using Angular Material's MatDialog
         this.dialog.open(DialogPostComponent, {
-            width: '30%'
+            width: '30%' // Set the width of the dialog
         });
     }
 
-    // Loads posts from the API and updates the MatTable dataSource
+    /**
+     * Method to load posts from the API.
+     */
     loadPosts() {
         this.spinner = true; // Show loading spinner
 
@@ -117,20 +138,30 @@ export class PostComponent implements OnInit {
                 this.spinner = false // Hide loading spinner
             },
             (error) => {
+                // Log an error message if loading posts fails
                 console.error('Error loading posts:', error);
                 this.spinner = false; // Hide loading spinner in case of error
             })
     }
 
+    /**
+     * Method to delete a post by its ID.
+     * @param postId The ID of the post to be deleted.
+     */
     deletePost(postId: string) {
         // Call the API to delete the post
         this.apiPost.deletePostById(postId).subscribe(
             () => {
+                // Show a snackbar message on successful deletion
                 this.snackbarService.showSnackbar('Post deleted successfully.');
+                // Reload the posts after deletion
                 this.loadPosts()
             },
             (error) => {
+                // Log an error message if deletion fails
                 console.error('Error deleting post:', error);
+                // Show a snackbar message on unsuccessful deletion
+                this.snackbarService.showSnackbar('Post delete was unsuccessful.');
             }
         );
     }

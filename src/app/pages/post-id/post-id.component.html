@@ -15,16 +15,16 @@
     <form style="padding: 20px" [formGroup]="commentForm" (ngSubmit)="onSubmit()">
         <mat-form-field style="width: 100%">
             <mat-label>Leave a comment</mat-label>
-            <textarea type="text" formControlName="content" matInput></textarea>
-            <mat-hint *ngIf="commentForm.get('content')?.invalid && commentForm.get('content')?.touched" align="end">
-                Content is required
+            <textarea type="text" formControlName="content" minlength="5" required matInput></textarea>
+            <mat-hint *ngIf="commentForm.get('content')?.invalid && (commentForm.get('content')?.touched || commentForm.get('content')?.dirty)" align="end">
+                Content is required with minimum 5 characters
             </mat-hint>
         </mat-form-field>
         <mat-form-field style="width: 100%">
             <mat-label>Author</mat-label>
-            <input type="text" formControlName="author" matInput>
-            <mat-hint *ngIf="commentForm.get('author')?.invalid && commentForm.get('author')?.touched" align="end">
-                Author is required
+            <input type="text" formControlName="author" minlength="5" required matInput>
+            <mat-hint *ngIf="commentForm.get('author')?.invalid && (commentForm.get('author')?.touched || commentForm.get('author')?.dirty)" align="end">
+                Author is required with minimum 5 characters
             </mat-hint>
         </mat-form-field>
         <button style="width: 100%" mat-raised-button color="warn" type="submit"

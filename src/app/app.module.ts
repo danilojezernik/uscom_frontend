@@ -35,7 +35,6 @@ import {MatListModule} from "@angular/material/list";
         MatIconModule,
         MatTabsModule,
         MatListModule,
-
     ],
     providers: [],
     bootstrap: [AppComponent]

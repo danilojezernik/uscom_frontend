@@ -32,8 +32,8 @@ export class DialogPostComponent implements OnInit {
 
     ngOnInit() {
         this.addingPostForm = this.formBuilder.group({
-            postTitle: ['', Validators.required], // Post title form control with required validator
-            author: ['', Validators.required] // Author form control with required validator
+            postTitle: ['', [Validators.required, Validators.minLength(5)]], // Post title form control with required and minLength validator
+            author: ['', [Validators.required, Validators.minLength(5)]] // Author form control with required and minLength validator
         })
     }
 

@@ -1,7 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+
 import {PostComponent} from "./pages/post/post.component";
 import {PostIdComponent} from "./pages/post-id/post-id.component";
+import {ContactComponent} from "./pages/contact/contact.component";
 
 const routes: Routes = [
     {
@@ -12,6 +14,9 @@ const routes: Routes = [
     },
     {
         path: 'post/:id', component: PostIdComponent
+    },
+    {
+        path: 'contact', component: ContactComponent
     }
 ];
 

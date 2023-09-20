@@ -16,6 +16,7 @@ export class GoBackComponent {
   ) {
   }
 
+  // Method to navigate back
   goBack() {
     this.location.back()
   }

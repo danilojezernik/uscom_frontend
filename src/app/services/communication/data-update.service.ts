@@ -5,11 +5,11 @@ import {Subject} from "rxjs";
   providedIn: 'root'
 })
 export class DataUpdateService {
-  private dataUpdated = new Subject<void>();
+  private dataUpdated = new Subject<void>(); // Create a subject for data updates
 
-  dataUpdated$ = this.dataUpdated.asObservable();
+  dataUpdated$ = this.dataUpdated.asObservable(); // Observable for data updates
 
   triggerDataUpdate() {
-    this.dataUpdated.next();
+    this.dataUpdated.next();  // Trigger a data update by emitting a value
   }
 }

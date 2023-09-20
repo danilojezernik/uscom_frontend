@@ -49,6 +49,10 @@ export class PostIdComponent {
     spinner: boolean = false; // Variable to control the visibility of a spinner
     selectedComment: any = null; // Variable to hold the selected comment for editing
 
+    /**
+     * Definition of a comment form using Angular Reactive Forms.
+     * Initialize an empty FormGroup to represent the comment form.
+     */
     commentForm: FormGroup = new FormGroup({}); // FormGroup for comment form
 
     // Data for the hero section
@@ -56,6 +60,7 @@ export class PostIdComponent {
         title: 'Comments of the current chapter',
         content: 'Is there something you want to add for current title and you want others to know!'
     };
+
     message: string = 'Backend service is unavailable. Please try again later.' // Message for error 503
 
     constructor(
@@ -67,21 +72,35 @@ export class PostIdComponent {
     ) {
     }
 
+    /**
+     * Method to handle component initialization.
+     * Initializes the comment form, fetches post data and comments based on the post ID.
+     */
     ngOnInit() {
-        const postId = this.route.snapshot.paramMap.get('id') || ''; // Get post ID from route
+        // Get post ID from the route or use an empty string if not available
+        const postId = this.route.snapshot.paramMap.get('id') || '';
+
+        // Initialize the comment form with content and author form controls
         this.commentForm = this.formBuilder.group({
-            content: ['', Validators.required], // Content form control with required validator
-            author: ['', Validators.required] // Author form control with required validator
+            content: ['', [Validators.required, Validators.minLength(5)]], // Content form control with required validator and minimum length of 5 characters
+            author: ['', [Validators.required, Validators.minLength(5)]] // Author form control with required validator and minimum length of 5 characters
         });
+
+        // If postId is available, fetch post data and comments for the post
         if (postId) {
             this.getPostById(postId); // Fetch post data by ID
             this.getCommentsForPost(postId); // Fetch comments for the post
         }
     }
 
+    /**
+     * Method to fetch post data by its ID.
+     * @param postId - ID of the post to fetch
+     */
     getPostById(postId: string) {
         this.spinner = true; // Show spinner while fetching post data
 
+        // Fetch post data by its ID using the API service
         this.apiPost.getPostById(postId).subscribe(
             (postData) => {
                 this.post = postData; // Assign fetched post data
@@ -94,9 +113,14 @@ export class PostIdComponent {
         );
     }
 
+    /**
+     * Method to fetch comments for a specific post by its ID.
+     * @param postId - ID of the post for which comments are to be fetched
+     */
     getCommentsForPost(postId: string) {
         this.spinner = true; // Show spinner while fetching comments
 
+        // Fetch comments for the specified post using the API service
         this.apiComment.getCommentsOfPost(postId).subscribe(
             (comments) => {
                 this.comments = comments; // Assign fetched comments
@@ -109,13 +133,20 @@ export class PostIdComponent {
         );
     }
 
+    /**
+     * Method to set the selected comment for editing and populate the comment form with its data.
+     * @param comment - The comment to be edited
+     */
     editComment(comment: any) {
         this.selectedComment = comment; // Set the selected comment for editing
+
+        // Populate the comment form with the content and author of the selected comment
         this.commentForm.patchValue({
             content: comment.content,
             author: comment.author
         });
-        // When editComment is activated it will scroll to the top of the html page
+
+        // When editComment is activated it will scroll to the top of the HTML page
         window.scroll({
             top: 0,
             left: 0,
@@ -123,6 +154,10 @@ export class PostIdComponent {
         });
     }
 
+    /**
+     * Method to delete a comment.
+     * @param commentId - The ID of the comment to be deleted
+     */
     deleteComment(commentId: string) {
         // Prompt the user for confirmation before deleting the comment
         if (!confirm('Are you sure you want to delete this comment?')) {
@@ -148,6 +183,9 @@ export class PostIdComponent {
         );
     }
 
+    /**
+     * Method to handle form submission for adding or editing a comment.
+     */
     onSubmit() {
         const postId = this.route.snapshot.paramMap.get('id') || '';
 
@@ -158,7 +196,7 @@ export class PostIdComponent {
                 ...this.selectedComment, // Clone the selected comment
                 content: this.commentForm.value.content,
                 author: this.commentForm.value.author,
-                updated_at: new Date().toISOString()  // Update updated_at timestamp
+                updated_at: new Date().toISOString()
             };
 
             // Call the comment service to edit the comment
@@ -181,6 +219,8 @@ export class PostIdComponent {
         } else {
             // Check if postId is not null before using it
             if (postId) {
+
+                // Create the comment data object
                 const commentData: any = {
                     post_id: postId,
                     content: this.commentForm.value.content,
@@ -192,9 +232,13 @@ export class PostIdComponent {
                 // Call the comment service to add a new comment to a specific post
                 this.apiComment.addCommentsToSpecificPost(postId, commentData)
                     .subscribe(() => {
+
+                            // Success: show a success snackbar and reset the form
                             this.snackbarService.showSnackbar('Your comment was was added successfully..');
                             this.getCommentsForPost(this.post._id); // Reload comments
                             this.commentForm.reset(); // Reset the form after successful submission
+
+                            // Scroll to the bottom of the page
                             window.scroll({
                                 top:  document.body.scrollHeight,
                                 left: 0,
@@ -203,6 +247,7 @@ export class PostIdComponent {
                         },
                         (error) => {
                             console.error('Error adding comment:', error);
+                            // Show an error snackbar if adding comment fails
                             this.snackbarService.showSnackbar('Error adding comment.');
                         }
                     );
