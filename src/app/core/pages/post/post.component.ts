@@ -82,7 +82,7 @@ export class PostComponent implements OnInit {
   openDialog() {
     // Open a dialog using Angular Material's MatDialog
     this.dialog.open(DialogPostComponent, {
-      width: '30%' // Set the width of the dialog
+      minWidth: '70%' // Set the width of the dialog
     });
   }
 
